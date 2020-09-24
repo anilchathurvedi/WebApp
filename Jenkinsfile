@@ -5,19 +5,33 @@ pipeline{
     }
     
     stages{
-        stage("git checkout"){
+       stage('Git Checkout') {
             steps{
-                
-                sh "ls"
-                sh "pwd"
-            }   
-        } 
+               
+                gitCheckout(
+                    
+                    branch: "master",
+                    url: "https://github.com/sravankumar77/simplewebapp.git"
+                )
+            }
+        }
+        
         stage("maven build"){
             steps{
-                sh "tree"
-                sh "hostname"
-                sh "mvn clean package"
+                mavenBuild()
             }   
         } 
+        
+        
+        stage("deploy"){
+            steps{
+                deployTomcat( 
+                    war: "target/java-tomcat-maven-example.war"
+                      )
+                 
+                //step([$class: 'DockerComposeBuilder', dockerComposeFile: 'docker-compose.yml', option: [$class: 'StartAllServices'], useCustomDockerComposeFile: true])
+            }   
+        }
+        
     }   
 }
