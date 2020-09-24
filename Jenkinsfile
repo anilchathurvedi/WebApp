@@ -1,5 +1,5 @@
 pipeline{
-    agent {label 'java'}
+    agent any
     environment{
        PATH = "/usr/share/maven/bin:$PATH"
     }
@@ -11,7 +11,7 @@ pipeline{
                 gitCheckout(
                     
                     branch: "master",
-                    url: "https://github.com/sravankumar77/simplewebapp.git"
+                    url: "https://github.com/anilchathurvedi/WebApp.git"
                 )
             }
         }
